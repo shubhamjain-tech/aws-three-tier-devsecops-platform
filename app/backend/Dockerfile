@@ -1,6 +1,20 @@
-FROM node:14
-WORKDIR /usr/src/app
+# Use an official Node.js LTS image
+FROM node:22-alpine
+
+# Create application directory
+WORKDIR /app
+
+# Copy package.json first
 COPY package*.json ./
-RUN npm install
+
+# Install dependencies
+RUN npm install --omit=dev
+
+# Copy application source code
 COPY . .
-CMD ["node", "index.js"]
+
+# Expose application port
+EXPOSE 3500
+
+# Start the application
+CMD ["npm", "start"]
