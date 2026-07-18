@@ -25,3 +25,15 @@ override.tf.json
 # OS
 .DS_Store
 Thumbs.db
+
+# Node.js
+node_modules/
+**/node_modules/
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+

@@ -1,20 +1,35 @@
-# Use an official Node.js LTS image
-FROM node:22-alpine
+# Use official Node.js LTS image
+FROM node:20-alpine
+
+# Metadata
+LABEL maintainer="Shubham Jain"
+LABEL project="aws-three-tier-devsecops-platform"
+LABEL component="backend"
 
 # Create application directory
 WORKDIR /app
 
-# Copy package.json first
+# Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install --omit=dev
+# Install only production dependencies
+RUN npm ci --omit=dev
 
-# Copy application source code
+# Copy application source
 COPY . .
 
-# Expose application port
+# Create a non-root user
+RUN addgroup -S appgroup && \
+    adduser -S appuser -G appgroup && \
+    chown -R appuser:appgroup /app
+
+USER appuser
+
+# Application Port
 EXPOSE 3500
 
-# Start the application
-CMD ["npm", "start"]
+# Health Check
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+CMD wget --no-verbose --tries=1 --spider http://localhost:3500/healthz || exit 1
+
+CMD ["npm","start"]
