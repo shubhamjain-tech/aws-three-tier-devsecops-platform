@@ -37,3 +37,9 @@ node_modules/
 # Logs
 *.log
 
+# Sensitive files
+*.pem
+*.key
+
+# IDE
+.vscode/

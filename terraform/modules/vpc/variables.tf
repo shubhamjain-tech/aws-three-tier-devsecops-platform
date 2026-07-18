@@ -1,29 +1,29 @@
 variable "project_name" {
-  description = "Project name used for tagging resources"
+  description = "Project Name"
   type        = string
 }
 
 variable "environment" {
-  description = "Deployment environment"
+  description = "Environment"
   type        = string
 }
 
 variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
+  description = "VPC CIDR Block"
   type        = string
 }
 
 variable "public_subnet_cidrs" {
-  description = "List of public subnet CIDRs"
+  description = "Public Subnets"
   type        = list(string)
 }
 
 variable "private_subnet_cidrs" {
-  description = "List of private subnet CIDRs"
+  description = "Private Subnets"
   type        = list(string)
 }
 
 variable "availability_zones" {
-  description = "Availability Zones for the subnets"
+  description = "Availability Zones"
   type        = list(string)
 }
